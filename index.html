@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>To DO</title>
+    <style>
+        body {
+            display: grid;
+            justify-content: center;
+        }
+
+        .container,
+        .todo-display {
+            display: grid;
+            grid-template-columns: 200px 150px 100px;
+            column-gap: 10px;
+            row-gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .container {
+            align-items: stretch;
+        }
+
+        .todoInput {
+            padding: 10px;
+
+        }
+
+        .con-btn {
+            border: none;
+            background-color: green;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .todo-display button {
+            padding: 10px;
+            width: 100%;
+            border: none;
+            background-color: rgb(133, 23, 23);
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <input placeholder="Add to List" class="todoInput">
+        <input type="date" class="todoInputDate" />
+        <button onclick="addList()" class="con-btn"> Add </button>
+        <div class="js-show-array js-show-grid"></div>
+    </div>
+
+    <script>
+        const toDoList = [{
+            name: "watch TV",
+            date: '2022-02-22'
+        }, {
+            name: 'Coding',
+            date: '2023-03-03'
+        }]
+        render();
+
+
+
+        function addList() {
+            let inputElement = document.querySelector('.todoInput');
+            let inputDate = document.querySelector('.todoInputDate')
+            toDoList.push({
+                name: inputElement.value,
+                date: inputDate.value
+            });
+            inputElement.value = '';
+            render();
+        }
+
+        function render() {
+            toDoListHTML = '';
+
+            for (let i = 0; i < toDoList.length; i++) {
+                let renderToDo = `<div class="todo-display"><div class="todo-display-name">${toDoList[i].name} </div> <div class="todo-display-date"> ${toDoList[i].date} </div> <div class="todo-display-btn"> <button onclick="
+                    toDoList.splice(${i},1);
+                    render()
+                    ">Remove</button></div> </div>`;
+                toDoListHTML += renderToDo;
+            }
+            document.querySelector('.js-show-array').innerHTML = toDoListHTML;
+
+        }
+    </script>
+</body>
+
+</html>
